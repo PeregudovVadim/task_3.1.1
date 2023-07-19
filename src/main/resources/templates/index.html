@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+<h1>Список пользователей</h1>
+
+<table border="2">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+    </tr>
+
+    <!--/*@thymesVar id="usersList" type="java.util.List<my.project.task3.model.User>"*/-->
+    <block th:each="user : ${usersList}">
+        <tr>
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getName()}"></td>
+            <td th:text="${user.getSurname()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+
+            <td>
+                <form th:method="delete" th:action="@{/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
+
+            <td>
+                <form th:action="@{/{id}/edit(id=${user.getId()})}">
+                    <input type="submit" value="Изменить">
+                </form>
+            </td>
+
+        </tr>
+    </block>
+
+</table>
+<a href="/new"><input type="submit" value="Добавить нового пользователя"></a>
+</body>
+</html>
